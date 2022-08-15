@@ -7,7 +7,6 @@
     "sequelize": "sequelize",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app/index.js" ,
-    "start": "node backend/index.js",
     "heroku-postbuild": "cd tango && npm install && npm run build"
   },
   "author": "",
