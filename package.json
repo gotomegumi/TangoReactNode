@@ -6,8 +6,7 @@
   "scripts": {
     "sequelize": "sequelize",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app/index.js" ,
-    "heroku-postbuild": "cd tango && npm install && npm run build"
+    "start": "node app/index.js"
   },
   "author": "",
   "license": "ISC",
