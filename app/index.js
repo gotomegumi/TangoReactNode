@@ -5,14 +5,14 @@ const port = process.env.PORT || 3001;
 const db =require("./models/index");
 const path = require('path');
 const cors = require("cors")
-var corsOptions = {
-    origin: "http://localhost:3000"
-}
+// var corsOptions = {
+//    origin: "http://localhost:3000"
+// }
 // app.use(cors(corsOptions));
 // app.use(express.static(path));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 db.sequelize.sync()
     .then(()=>{
