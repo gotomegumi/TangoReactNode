@@ -17,7 +17,7 @@ function Home({ setStatus }) {
   })
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/tango/status')
+    axios.get('/api/tango/status')
       .then(response => {
         setStatuses(response.data)
       })
