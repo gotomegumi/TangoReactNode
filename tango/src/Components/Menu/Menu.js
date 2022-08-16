@@ -12,7 +12,7 @@ function Menu({ status, setStatus }) {
     const section = params.sectionNum;
     const navigate = useNavigate()
     useEffect(() => {
-        axios.get(`http://localhost:3001/api/tango/result/${section}`)
+        axios.get(`/api/tango/result/${section}`)
             .then(response => {setStatus(response.data)})
 
       }, [])
@@ -20,7 +20,7 @@ function Menu({ status, setStatus }) {
         navigate('/quez/'+section)
     }
     const startOver = () => {
-        axios.post(`http://localhost:3001/api/tango/clear/${section}/0/3`)
+        axios.post(`/api/tango/clear/${section}/0/3`)
         navigate('/quez/'+section)
     }
     // const nextMenu = () => {
@@ -29,7 +29,7 @@ function Menu({ status, setStatus }) {
     const nextMenu = () => {
         setStatus('')
         const next = Number(section)+1
-        axios.get(`http://localhost:3001/api/tango/result/${next}`)
+        axios.get(`/api/tango/result/${next}`)
         .then(response => {setStatus(response.data)})
         navigate('/menu/'+next)
 
@@ -38,7 +38,7 @@ function Menu({ status, setStatus }) {
     const beforeMenu = () => {
         setStatus('')
         const before = Number(section)-1
-        axios.get(`http://localhost:3001/api/tango/result/${before}`)
+        axios.get(`/api/tango/result/${before}`)
         .then(response => {setStatus(response.data)})
         navigate('/menu/'+before)
 
@@ -57,6 +57,7 @@ function Menu({ status, setStatus }) {
                     percentage={status ? `${status.answered}` : '0' }
                     bar_color='blue'
                     emp='3'
+                    width='45%'
                 />
             </S>
             <S>
@@ -65,6 +66,7 @@ function Menu({ status, setStatus }) {
                     percentage={status ? `${status.answerrate}` : '0' }
                     bar_color='green'
                     emp='3'
+                    width='45%'
                 />
             </S>
         </BoxesWrap>

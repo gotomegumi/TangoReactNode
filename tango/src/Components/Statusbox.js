@@ -26,6 +26,11 @@ const Status = styled.div`
   box-shadow: #ffa159 4px 4px;
   font-size: large;
   font-size: 20px;
+
+  @media screen and (max-width: 450px) {
+    width: ${props => props.width ? props.width : '180px' };
+    width: 45%;
+  }
 `
 
 const Text2 = styled.p`

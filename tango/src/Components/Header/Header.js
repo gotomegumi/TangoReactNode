@@ -48,7 +48,7 @@ const Head = styled.header`
 const Header_title = styled.div`
     line-height: 100px;
     margin-left: 40px;
-    color: black;
+    color: rgb(255, 169, 47);
 `
 
 const TitleLink = styled(Link)`

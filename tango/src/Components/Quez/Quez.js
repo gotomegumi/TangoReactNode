@@ -21,17 +21,17 @@ const Quez = ({ status, setStatus }) => {
   useEffect(() => {
     const f = async () => {
         // check what kind of tango data should be loaded
-        const res = await axios.get(`http://localhost:3001/api/tango/status1/${section}`) 
+        const res = await axios.get(`/api/tango/status1/${section}`) 
         console.log("progress:"+res.data.answered+"%")  
         console.log(res.data.answered==100)
         if(res.data.answered==100){
           // get words of learning 0
-          const res = await axios.get(`http://localhost:3001/api/tango/getquez/${section}/3`)
+          const res = await axios.get(`/api/tango/getquez/${section}/3`)
           setWords(res.data) 
           console.log(res.data, "1")
         }else{
           //get words of learning 3
-          const res = await axios.get(`http://localhost:3001/api/tango/getquez/${section}/0`) 
+          const res = await axios.get(`/api/tango/getquez/${section}/0`) 
           setWords(res.data)
           console.log(res.data, "2")
         }
@@ -41,7 +41,7 @@ const Quez = ({ status, setStatus }) => {
   
   // register words's learning level (1 or 2 or 0)
   const addAnswer = (id, learning) => {
-    axios.post(`http://localhost:3001/api/tango/answer`,{
+    axios.post(`/api/tango/answer`,{
       id,
       learning,
     })
@@ -57,9 +57,9 @@ const Quez = ({ status, setStatus }) => {
   // get the overall result of section(learning level and progress)
   const [resultNum, setResult] = useState()
   const result = () => {
-    axios.get(`http://localhost:3001/api/tango/result/${section}`)
+    axios.get(`/api/tango/result/${section}`)
       .then(response => setResult(response.data))
-    axios.post(`http://localhost:3001/api/tango/markUpdate/${section}`)
+    axios.post(`/api/tango/markUpdate/${section}`)
   }
 
   const num = (id, learning, index) => {
@@ -112,7 +112,7 @@ export default Quez
 
 const Card = styled.div`
   position: fixed;
-  background-color: white;
+  background-color: ${({theme})=> theme.content};
    top: 110px;
   bottom: 0;
   left: 0;
