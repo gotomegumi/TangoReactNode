@@ -53,7 +53,7 @@ const Header_title = styled.div`
 
 const TitleLink = styled(Link)`
     font-size: 35px;
-    color: ${({theme})=>theme.text};
+    color: #ff9a2e;
     text-decoration: none;
     font-weight: 550;
 `

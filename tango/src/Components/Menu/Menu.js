@@ -14,14 +14,15 @@ function Menu({ status, setStatus }) {
     useEffect(() => {
         axios.get(`/api/tango/result/${section}`)
             .then(response => {setStatus(response.data)})
-
       }, [])
-    const move = () => {
-        navigate('/quez/'+section+'/1')
+    const move = (lean) => {
+        navigate('/quez/'+section+'/'+lean)
     }
-    const startOver = () => {
-        axios.post(`/api/tango/clear/${section}/0/3`)
-        navigate('/quez/'+section)
+    const startOver = async () => {
+        await axios.post(`/api/tango/clear/${section}/0/3`)
+        await axios.get(`/api/tango/result/${section}`)
+            .then(response => {setStatus(response.data)})
+        navigate('/quez/'+section+'/1')
     }
     // const nextMenu = () => {
     //     navigate('/menu/'+section)
@@ -66,13 +67,15 @@ function Menu({ status, setStatus }) {
                 />
             </S>
         </BoxesWrap>
-        <ButtonWrap color='#ff7575'>
-            <ButtonText onClick={()=>move()}>始める</ButtonText> 
+        <ButtonWrap color='#ff7575' onClick={()=>move(2)}>
+            <ButtonText >始める</ButtonText> 
         </ButtonWrap>
-        <ButtonWrap color='#34daff'>
-            <ButtonText onClick={() => startOver()}>1からはじめる</ButtonText> 
+        <ButtonWrap color='#34daff' onClick={() => startOver()}>
+            <ButtonText >1からはじめる</ButtonText> 
         </ButtonWrap>
-        <ButtonWrap color='#96ed8e'></ButtonWrap>
+        <ButtonWrap color='#96ed8e' onClick={()=>move(3)} show={status?`${status.answered===100?'block':'none'}`:'none'}>
+            <ButtonText>✕の単語のみ復習する</ButtonText>
+        </ButtonWrap>
         <MoveWrap>
             {section>1 && <Move m='right' onClick={() => beforeMenu()}>Before</Move>}
             {section<18 && <Move m='left' onClick={() => nextMenu()}>Next</Move>}
@@ -103,18 +106,18 @@ const BoxesWrap = styled.div`
     margin-bottom: 20px;
 `
 const MoveWrap = styled.div`
-display: flex;
+    display: flex;
 `
 const Move = styled.p`
-cursor: pointer;
-font-size: 20px;
-padding: 5px 15px;
-border-radius: 5px;
-margin-left: ${props => props.m=='left' ? 'auto' : '0'};
-margin-right: ${props => props.m=='right' ? 'auto' : '0'};
-&:hover{
-    background-color: pink;
-}
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-left: ${props => props.m=='left' ? 'auto' : '0'};
+    margin-right: ${props => props.m=='right' ? 'auto' : '0'};
+    &:hover{
+        background-color: pink;
+    }
 `
 
 export default Menu

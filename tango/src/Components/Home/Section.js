@@ -16,17 +16,20 @@ const Section = ({ status, index, setStatus }) => {
         'rgb(52, 218, 255)',
         '#98eb6c',
         'rgb(255, 225, 105)',
-        'white',
-        '#4ff0d2',
-        'rgb(120, 239, 255)',
+        '#ffa930',
+        '#66e3c2',
+        '#2172ff',
         'rgb(120, 170, 255)',
         'rgb(208, 120, 255)',
         'rgb(255, 152, 241)',
-        'rgb(255, 135, 135)',
-        'rgb(52, 218, 255)',
-        '#98eb6c',
-        'rgb(255, 225, 105)',
-        'white',
+        '#ff6f21',
+        '#ff8636',
+        '#f8ff21',
+        '#abff8f',
+        '#a8ffcf',
+        '#c2fff9',
+        '#c2d5ff',
+        '#f9c2ff'
     ]
      
     const color=sec_color[`${index}`]

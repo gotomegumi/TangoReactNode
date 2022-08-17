@@ -1,4 +1,6 @@
 const { sequelize } = require("../models");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 const db = require("../models");
 const Word = db.Word1;
 const Progress = db.progress;
@@ -27,19 +29,6 @@ exports.create=(req, res) =>{
         });
     
 }
-
-// exports.findAll=(req, res) => {
-//     Test.findAll()
-//         .then(data => {
-//             res.send(data);
-//         })
-//         .catch(err =>{
-//             res.status(500).send({
-//                 message:
-//                     err.message || "error occured"
-//             });
-//         });
-// }
 
 exports.status = (req, res) => {
     Progress.findAll({ order: sequelize.literal('id')})
@@ -73,10 +62,10 @@ exports.findOne = (req, res) => {
 
 exports.getquez = (req, res) => {
     const section = req.params.section;
-    const learning = req.params.learning;
-    Word
-        .findAll({ 
-            where : { section:section, learning: learning }, 
+    const learn = req.params.learning;
+    if(learn==2){    
+        Word.findAll({ 
+            where : { section:section,[Op.or]:[{learning:'3'},{learning:'2'}]} , 
             limit:15,
             order: sequelize.random() 
         })
@@ -89,8 +78,28 @@ exports.getquez = (req, res) => {
                 message:
                     err.message || 'error'
             })
+        })}
+    else if(learn==0){
+        Word.findAll({ 
+            where : { section:section,learning: '0' } , 
+            limit:15,
+            order: sequelize.random() 
         })
-}
+        .then(data => {
+
+            res.send(data);
+        })
+    }else if(learn==3){
+        Word.findAll({ 
+            where : { section:section,learning: '3' } , 
+            limit:15,
+            order: sequelize.random() 
+        })
+        .then(data => {
+
+            res.send(data);
+        })
+    }}
 
 exports.answer = (req, res) => {
     const learning = req.body.learning

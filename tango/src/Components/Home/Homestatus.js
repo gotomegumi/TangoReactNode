@@ -50,6 +50,9 @@ const StatusWrap = styled.ul`
 const S = styled.div`
     width: 180px;
     cursor: pointer;
+    :nth-child(1){
+        margin-right: 10px;
+    }
     /* margin-right: 10px; */
     @media screen and (max-width: 450px) {
         width: 50%;

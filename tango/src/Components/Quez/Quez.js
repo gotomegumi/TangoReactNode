@@ -26,21 +26,15 @@ const Quez = ({ status, setStatus }) => {
         console.log("progress:"+res.data.answered+"%")  
         console.log(res.data.answered==100)
         if(res.data.answered==100){
-          // get words of learning 0
-          if(learn==1){
-            const res = await axios.get(`/api/tango/getquez/${section}/3`)
+          // get words of learning 2,3(vaguely or not remembered)
+            const res = await axios.get(`/api/tango/getquez/${section}/${learn}`)
             setWords(res.data) 
-            console.log(res.data, "1")
-          }else if(learn==3)
-          {
-            const res = await axios.get(`/api/tango/getquez/${section}/3`)
-            setWords(res.data)
-          }
+            console.log(res.data, learn)
         }else{
-          //get words of learning 3
+          //get words of learning 0(not learned)
           const res = await axios.get(`/api/tango/getquez/${section}/0`) 
           setWords(res.data)
-          console.log(res.data, "2")
+          console.log(res.data, "0")
         }
     }
     f()
