@@ -12,7 +12,8 @@ const Indicater = ({ percentage, bar_color, bar_wrap_color, height }) => {
 
 const Bar_wrap = styled.div`
   height: ${props => props.height ? props.height : '20px'};
-  background-color: ${props => props.bar_wrap_color ? props.bar_wrap_color : '#EEEEEE'};
+  /* background-color: ${({theme})=>theme.bar}; */
+  background-color: ${(props) => props.bar_wrap_color ? props.bar_wrap_color : props.theme.bar};
   border-radius: 10px;
   overflow: hidden;
 `

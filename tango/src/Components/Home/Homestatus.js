@@ -15,8 +15,9 @@ const Homestatus = ({recent}) => {
     <div>
         <h2>Status</h2>
         <StatusWrap>
-            <S onClick={move}>
+            <S>
                 <Statusbox 
+                    onClick={move}
                     section={recent.section}
                     text='進捗'
                     bar_color='#1b91ff'
@@ -47,14 +48,21 @@ const StatusWrap = styled.ul`
 `
 
 const S = styled.div`
-    margin-right: 20px;
+    width: 180px;
+    cursor: pointer;
+    /* margin-right: 10px; */
+    @media screen and (max-width: 450px) {
+        width: 50%;
+        
+    }
+    /* margin-right: 20px;
     margin-bottom: 13px;
     border-radius: 15px;
     background-color: ${({theme})=>theme.content};
     cursor: pointer;
     &:hover{
         background-color: ${({theme})=>theme.hover};
-    }
+    } */
 `
 
 export default Homestatus

@@ -3,7 +3,11 @@ export const lightTheme = {
     text: 'black',
     header_color: '#f0faff',
     content: 'white',
-    hover: '#EEEEEE'
+    bar: "#EEEEEE",
+    hover: '#EEEEEE',
+    word_back: "#FFEAC2",
+    card_back: "white",
+    card_bar: "#FFC3C3"
 }
 
 export const darkTheme ={
@@ -11,5 +15,10 @@ export const darkTheme ={
     text: 'white',
     header_color: '#212121',
     content: '#303030',
-    hover: 'black'    
+    bar: "#3d3d3d",
+    hover: 'black'   , 
+    word_back: "#474238",
+    card_border: "#c3f8ff",
+    card_back: "#212121",
+    card_bar:"red"
 }

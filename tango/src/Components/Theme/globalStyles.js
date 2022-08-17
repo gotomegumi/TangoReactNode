@@ -7,6 +7,10 @@ export default createGlobalStyle`
   box-sizing: border-box;
 }
 
+a{
+  color: ${({theme})=>theme.text};
+}
+
 li{
   list-style: none;
 }
@@ -14,6 +18,7 @@ li{
 body{
   background-color: ${({theme}) => theme.body};
   color: ${({theme}) => theme.text}; 
+  font-family: Meiryo, "Yu Mincho", "ヒラギノ角ゴ ProN", 游ゴシック;
 }
 
 
@@ -26,7 +31,6 @@ export const Container = styled.div`
   padding-left: 10px;
 
 `
-
 
 export const ButtonWrap = styled.div`
   width: 100%;
@@ -42,6 +46,7 @@ export const ButtonWrap = styled.div`
   height: 70px;
   @media screen and (max-width: 450px){
     margin-bottom: 20px;
+    height: ${(props)=> props ? props.h : "70px"};
   }
 `
 

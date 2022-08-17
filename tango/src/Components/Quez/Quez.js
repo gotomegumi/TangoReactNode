@@ -9,6 +9,7 @@ import axios from 'axios';
 const Quez = ({ status, setStatus }) => {
   let params = useParams();
   const section = params.sectionNum;
+  const learn = params.learning;
 
   const [cardnum, setCardnum] = useState(0)
   const [visible, setVisible] = useState(false)
@@ -26,9 +27,15 @@ const Quez = ({ status, setStatus }) => {
         console.log(res.data.answered==100)
         if(res.data.answered==100){
           // get words of learning 0
-          const res = await axios.get(`/api/tango/getquez/${section}/3`)
-          setWords(res.data) 
-          console.log(res.data, "1")
+          if(learn==1){
+            const res = await axios.get(`/api/tango/getquez/${section}/3`)
+            setWords(res.data) 
+            console.log(res.data, "1")
+          }else if(learn==3)
+          {
+            const res = await axios.get(`/api/tango/getquez/${section}/3`)
+            setWords(res.data)
+          }
         }else{
           //get words of learning 3
           const res = await axios.get(`/api/tango/getquez/${section}/0`) 
@@ -60,6 +67,7 @@ const Quez = ({ status, setStatus }) => {
     axios.get(`/api/tango/result/${section}`)
       .then(response => setResult(response.data))
     axios.post(`/api/tango/markUpdate/${section}`)
+    console.log(resultNum)
   }
 
   const num = (id, learning, index) => {
@@ -82,7 +90,6 @@ const Quez = ({ status, setStatus }) => {
       <Card key={index} value={word.learning} cardnum={cardnum} num={index}>
         <Section_num>Section{word.section}</Section_num>
         <Progress_bar><Indicater 
-          bar_wrap_color='#FFC3C3' 
           bar_color='#FF7171' 
           percentage={(index+1)*100/(total+1)} 
         /></Progress_bar>
@@ -101,7 +108,7 @@ const Quez = ({ status, setStatus }) => {
       </Card>
       ))}
       <Card num={total} cardnum={cardnum}>
-        <Rsult />
+        <Rsult result={resultNum}/>
       </Card>
       <Card style={{'zIndex': '0'}}><div>Section{section}</div><div>No imformation</div><Link to="/">Home</Link></Card>
     </div>
@@ -112,18 +119,18 @@ export default Quez
 
 const Card = styled.div`
   position: fixed;
-  background-color: ${({theme})=> theme.content};
-   top: 110px;
+  background-color: ${({theme})=> theme.card_back};
+  top: 110px;
   bottom: 0;
   left: 0;
   right: 0;
   margin: auto; 
   z-index: 50;
-  box-shadow: 7px 7px rgb(151, 208, 255);
+  box-shadow: 5px 7px #c3f8ff;
   width: 370px;
   height: 500px;
   text-align: center;
-  border: 2px solid black;
+  border: 3px solid ${({theme})=>theme.card_border};
   border-radius: 15px;
   display: ${(props) => props.num===props.cardnum ? 'block' : 'none'};
 `
@@ -140,7 +147,7 @@ const Progress_bar = styled.div`
   margin: auto;
 `
 const Word = styled.div`
-  background-color: #FFEAC2;
+  background-color: ${({theme})=>theme.word_back};
   display: inline-block;
   border-radius: 20px;
   padding: 0 10px;
@@ -177,9 +184,10 @@ const Button = styled.button`
   margin: 0 5px;
   text-align: center;
   font-size: 50px;
-  background-color: white;
+  color: ${({theme})=>theme.text};
+  background-color: ${({theme})=>theme.card_back};
   cursor: pointer;
-  &:hover{background-color: #eeeeee;}
+  &:hover{background-color: ${({theme})=>theme.hover};}
   &:active{border: solid 3px grey}
 ` 
 
@@ -192,10 +200,10 @@ const Showanswer = styled.div`
 const Show = styled.button`  
   width: 150px;
   height: 50px;
-  border: 2px solid grey;
+  border: 2px solid ${({theme})=>theme.card_border};
   border-radius: 15px;
   display: inline-block;
-  background-color: #dbf9ff;
+  background-color: #c3f8ff;
   font-size: 20px;
   cursor: pointer;
 `

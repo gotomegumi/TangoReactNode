@@ -16,9 +16,10 @@ const Statusbox = ({ text, section, bar_color, percentage, emp }) => {
 }
 
 const Status = styled.div`
-  width: 180px;
   height: 180px;
+  width: 100%;
   border-radius:  15px;
+
   padding: 17px 10px 10px;
   display: inline-block;
   flex-shrink: 0;
@@ -26,10 +27,10 @@ const Status = styled.div`
   box-shadow: #ffa159 4px 4px;
   font-size: large;
   font-size: 20px;
+  background-color: ${({theme})=>theme.content};
 
   @media screen and (max-width: 450px) {
-    width: ${props => props.width ? props.width : '180px' };
-    width: 45%;
+    /* width: ${props => props.width ? props.width : '180px' }; */
   }
 `
 

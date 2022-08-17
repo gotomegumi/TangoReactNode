@@ -17,7 +17,7 @@ function Menu({ status, setStatus }) {
 
       }, [])
     const move = () => {
-        navigate('/quez/'+section)
+        navigate('/quez/'+section+'/1')
     }
     const startOver = () => {
         axios.post(`/api/tango/clear/${section}/0/3`)
@@ -46,27 +46,23 @@ function Menu({ status, setStatus }) {
 
   return (
     <Container>
-        <div>
             <Link to={'/'}>←Home</Link>
             <h2>Section{section}</h2>
-        </div>
         <BoxesWrap>
             <S>
                 <Statusbox
                     text='進捗'
                     percentage={status ? `${status.answered}` : '0' }
-                    bar_color='blue'
+                    bar_color='#2ca2ff'
                     emp='3'
-                    width='45%'
                 />
             </S>
             <S>
                 <Statusbox
                     text='定着度'
                     percentage={status ? `${status.answerrate}` : '0' }
-                    bar_color='green'
+                    bar_color='#b0f74c'
                     emp='3'
-                    width='45%'
                 />
             </S>
         </BoxesWrap>
@@ -92,7 +88,11 @@ const ButtonText = styled.p`
 `
 
 const S = styled.div`
-    margin-right: 10px;
+    @media screen and (max-width: 450px) {
+        width: 50%;
+    }
+    margin-right: 0px;
+    width: 180px;
 `
 const MenuWrap = styled.div`
 `

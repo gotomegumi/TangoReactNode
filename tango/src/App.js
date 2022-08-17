@@ -28,7 +28,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home setStatus={setStatus} />} />
             <Route path='/menu/:sectionNum' element={<Menu status={status} setStatus={setStatus}/>} />
-            <Route path='/quez/:sectionNum' element={<Quez status={status} setStatus={setStatus}/>} />
+            <Route path='/quez/:sectionNum/:learning' element={<Quez status={status} setStatus={setStatus}/>} />
           </Routes>
         </BrowserRouter>
     </ThemeProvider>

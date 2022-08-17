@@ -34,7 +34,6 @@ function Home({ setStatus }) {
         {statuses.map((status, index) => (
             <Section status={status} index={index} key={index} setStatus={setStatus}/>
         ))}
-        <Link to='/menu'>menu</Link>
       </Container>
     </div>
   )

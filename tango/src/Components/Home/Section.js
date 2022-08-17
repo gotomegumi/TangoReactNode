@@ -12,24 +12,21 @@ const Section = ({ status, index, setStatus }) => {
         setStatus(this_status)
     }
     const sec_color = [
-        'rgb(52, 218, 255)',
-        'rgb(255, 225, 105)',
         'rgb(255, 135, 135)',
-        'red',
-        'green',
-        'rgb(120, 255, 221)',
+        'rgb(52, 218, 255)',
+        '#98eb6c',
+        'rgb(255, 225, 105)',
+        'white',
+        '#4ff0d2',
         'rgb(120, 239, 255)',
         'rgb(120, 170, 255)',
         'rgb(208, 120, 255)',
         'rgb(255, 152, 241)',
-        'rgb(255, 104, 104)',
-        'rgb(255, 148, 103)',
-        'rgb(255, 236, 94)',
-        'rgb(139, 255, 135)',
-        'rgb(155, 255, 222)',
-        'rgb(107, 245, 255)',
-        'rgb(67, 136, 255)',
-        'rgb(123, 86, 255)'
+        'rgb(255, 135, 135)',
+        'rgb(52, 218, 255)',
+        '#98eb6c',
+        'rgb(255, 225, 105)',
+        'white',
     ]
      
     const color=sec_color[`${index}`]
@@ -38,6 +35,7 @@ const Section = ({ status, index, setStatus }) => {
     <ButtonWrap 
         onClick={() => move(status)}
         color={color}
+        h="80px"
     >
         <Section_text>Section{ status.section } : 特に分類なし </Section_text>
         <Section_bars>
