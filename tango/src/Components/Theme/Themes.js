@@ -7,7 +7,7 @@ export const lightTheme = {
     hover: '#EEEEEE',
     word_back: "#FFEAC2",
     card_back: "white",
-    card_bar: "#FFC3C3"
+    card_bar: "#ffbdbd"
 }
 
 export const darkTheme ={
@@ -20,5 +20,5 @@ export const darkTheme ={
     word_back: "#474238",
     card_border: "#c3f8ff",
     card_back: "#212121",
-    card_bar:"red"
+    card_bar:"#ffbdbd"
 }

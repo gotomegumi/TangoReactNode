@@ -7,14 +7,7 @@ import './Home.css'
 import axios from 'axios'
 
 
-function Home({ setStatus }) {
-  const [statuses, setStatuses] = useState([
-  ])
-  const [recent, setRecent] = useState({
-    section:"0",
-    answered:"0",
-    answerrate:"0"
-  })
+function Home({ setStatus, statuses, setStatuses, recent, setRecent }) {
 
   useEffect(() => {
     axios.get('/api/tango/status')

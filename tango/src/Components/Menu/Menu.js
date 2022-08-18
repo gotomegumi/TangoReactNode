@@ -14,12 +14,13 @@ function Menu({ status, setStatus }) {
     useEffect(() => {
         axios.get(`/api/tango/result/${section}`)
             .then(response => {setStatus(response.data)})
+        console.log(status)
       }, [])
     const move = (lean) => {
         navigate('/quez/'+section+'/'+lean)
     }
     const startOver = async () => {
-        await axios.post(`/api/tango/clear/${section}/0/3`)
+        await axios.post(`/api/tango/clear/${section}/2/2/3`)
         await axios.get(`/api/tango/result/${section}`)
             .then(response => {setStatus(response.data)})
         navigate('/quez/'+section+'/1')
@@ -71,7 +72,7 @@ function Menu({ status, setStatus }) {
             <ButtonText >始める</ButtonText> 
         </ButtonWrap>
         <ButtonWrap color='#34daff' onClick={() => startOver()}>
-            <ButtonText >1からはじめる</ButtonText> 
+            <ButtonText >1から復習</ButtonText> 
         </ButtonWrap>
         <ButtonWrap color='#96ed8e' onClick={()=>move(3)} show={status?`${status.answered===100?'block':'none'}`:'none'}>
             <ButtonText>✕の単語のみ復習する</ButtonText>

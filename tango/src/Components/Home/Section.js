@@ -2,7 +2,6 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Indicater from '../Indicater'
 import styled from 'styled-components'
-import { darkTheme } from '../Theme/Themes'
 import { ButtonWrap } from '../Theme/globalStyles'
 
 const Section = ({ status, index, setStatus }) => {

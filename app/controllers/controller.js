@@ -119,7 +119,7 @@ exports.result = async (req, res) => {
     const answerrate = Math.round((count3/count)*100)
     const answered = Math.round((1-count2/count)*100)
     const update = await Progress.update({ answerrate: answerrate, answered: answered },{where: { section: section } })
-    res.send({ answerrate, answered })
+    res.send({ answerrate, answered, section })
     }
 
 exports.mark = async (req, res) => {
@@ -129,17 +129,12 @@ exports.mark = async (req, res) => {
     res.send({ recent })
 }
 
-// exports.markUpdate = (res, req) => {
-//     const section = req.params.section
-//     Progress.Update({ section: section },{where: { id: '1' }})
-//     .then(() => res.send("success"))
-// }
-
 exports.clear = (req, res) => {
     const section = req.params.section
     const learning = req.params.learning
     const learning2 = req.params.learning2
-    Word.update({ learning: learning },{ where: { section: section, learning: learning2 }})
+    const learning3 = req.params.learning3
+    Word.update({ learning: '0' },{ where: { section: section, [Op.or]:[{learning: learning},{learning: learning2},{learning: learning3}] }})
         .then(() => res.send("success"))
 }
 
