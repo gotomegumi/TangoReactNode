@@ -6,7 +6,7 @@ import Rsult from './Result'
 import { useParams, Link } from 'react-router-dom'
 import axios from 'axios';
 
-const Quez = ({ status, setStatus, recent, setRecent }) => {
+const Quez = ({ status, setStatus, recent, setRecent, tm, settm }) => {
   let params = useParams();
   const section = params.sectionNum;
   const learn = params.learning;
@@ -18,7 +18,7 @@ const Quez = ({ status, setStatus, recent, setRecent }) => {
   var total =15
   
   // total = words.length();
-  var tm = 4000;
+  
   var fn = () => {
     setVisible(true)
     console.log('time')

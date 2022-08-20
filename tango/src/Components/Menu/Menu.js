@@ -7,7 +7,7 @@ import Statusbox from '../Statusbox'
 import styled from 'styled-components';
 import { ButtonWrap } from '../Theme/globalStyles';
 
-function Menu({ status, setStatus }) {
+function Menu({ status, setStatus, settm }) {
     let params = useParams();
     const section = params.sectionNum;
     const navigate = useNavigate()
@@ -43,7 +43,10 @@ function Menu({ status, setStatus }) {
         axios.get(`/api/tango/result/${before}`)
         .then(response => {setStatus(response.data)})
         navigate('/menu/'+before)
+    }
 
+    const changetm = (tms) => {
+        settm(tms)
     }
 
   return (
@@ -81,9 +84,28 @@ function Menu({ status, setStatus }) {
             {section>1 && <Move m='right' onClick={() => beforeMenu()}>Before</Move>}
             {section<18 && <Move m='left' onClick={() => nextMenu()}>Next</Move>}
         </MoveWrap>
+        <TmButton>
+            <p onClick={()=>changetm(4000)}>4000</p>
+            <p onClick={()=>changetm(6000)}>6000</p>
+            <p onClick={()=>changetm(8000)}>8000</p>
+        </TmButton>
     </Container>
   )
 }
+
+const TmButton = styled.div`
+    display: flex;
+    p{
+        margin: 30px 30px;
+        padding: 10px 30px;
+    }
+    p:hover{
+        background-color: aliceblue;
+    }
+    p:active{
+        background-color: antiquewhite;
+    }
+`
 
 const ButtonText = styled.p`
     text-align: center;

@@ -26,6 +26,7 @@ function App() {
     answered:"0",
     answerrate:"0"
   })
+  const [tm, settm] = useState('6000')
 
 
   return (
@@ -41,12 +42,19 @@ function App() {
               recent={recent}
               setRecent={setRecent}
             />} />
-            <Route path='/menu/:sectionNum' element={<Menu status={status} setStatus={setStatus}/>} />
+            <Route path='/menu/:sectionNum' element={<Menu 
+              status={status} 
+              setStatus={setStatus}
+              settm={settm}
+              tm={tm}
+            />} />
             <Route path='/quez/:sectionNum/:learning' element={<Quez 
               status={status} 
               setStatus={setStatus}
               recent={recent}
               setRecent={setRecent}
+              tm={tm}
+              settm={settm}
             />} />
           </Routes>
         </BrowserRouter>
