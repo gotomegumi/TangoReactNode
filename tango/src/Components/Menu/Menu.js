@@ -25,9 +25,6 @@ function Menu({ status, setStatus, settm }) {
             .then(response => {setStatus(response.data)})
         navigate('/quez/'+section+'/1')
     }
-    // const nextMenu = () => {
-    //     navigate('/menu/'+section)
-    // }     
     const nextMenu = () => {
         setStatus('')
         const next = Number(section)+1

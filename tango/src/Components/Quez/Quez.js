@@ -30,15 +30,20 @@ const Quez = ({ status, setStatus, recent, setRecent, tm, settm }) => {
       // check what kind of tango data should be loaded
       const res = await axios.get(`/api/tango/status1/${section}`) 
       console.log("progress:"+res.data.answered+"%")  
-      console.log("wether or not progress=100%"+res.data.answered==100)
-      if(res.data.answered==100){
-        // get words of learning 2,3(vaguely or not remembered)
-          const res = await axios.get(`/api/tango/getquez/${section}/${learn}`)
+      console.log("wether progress=100%"+res.data.progress.answered==100)
+      if(res.data.progress.answered>=99){
+        // get words of learning 2,3(△or✕)
+          const res = await axios.get(`/api/tango/getquez/${section}/${learn}/15`)
           setWords(res.data) 
           console.log(res.data, learn)
+      // not to make remaining words 0 too few, so that quez won't end so early
+      }else if(res.data.count<20){
+         const res = await axios.get(`/api/tango/getquez/${section}/0/100}`)
+         setWords(res.data) 
+         console.log(res.data, "00")
       }else{
         //get words of learning 0(not learned)
-        const res = await axios.get(`/api/tango/getquez/${section}/0`) 
+        const res = await axios.get(`/api/tango/getquez/${section}/0/15`) 
         setWords(res.data)
         console.log(res.data, "0")
       }
@@ -47,18 +52,14 @@ const Quez = ({ status, setStatus, recent, setRecent, tm, settm }) => {
     setCardnum(cardnum+1)
   },[])
   
-  // register words's learning level (1 or 2 or 0)
-  const addAnswer = (id, learning) => {
-    axios.post(`/api/tango/answer`,{
-      id,
-      learning,
-    })
-  }
-
   useEffect(()=>{
     tmout = setTimeout(fn, tm);
     return ()=>{clearTimeout(tmout)}
   },[cardnum])
+
+  const show = () => {
+    setVisible(true)
+  }
  
   const pushButton = (id, learning, index) => {
     setCardnum(cardnum+1);
@@ -69,8 +70,13 @@ const Quez = ({ status, setStatus, recent, setRecent, tm, settm }) => {
       result()
     }
   }
-  const show = () => {
-    setVisible(true)
+
+  // register words's learning level (1 or 2 or 0)
+  const addAnswer = (id, learning) => {
+    axios.post(`/api/tango/answer`,{
+      id,
+      learning,
+    })
   }
 
   // get the overall result of section(learning level and progress)and register that to database
@@ -115,7 +121,6 @@ const Quez = ({ status, setStatus, recent, setRecent, tm, settm }) => {
         <Rsult result={resultNum}/>
       </Card>
       <Card style={{'zIndex': '1', 'display':'flex'}}>loading<p>.</p><p>.</p>.</Card>
-      {/* <Card style={{'zIndex': '0'}} ><div>Section{section}</div><div>No imformation</div><Link to="/">Home</Link></Card> */}
     </div>
   )
 }

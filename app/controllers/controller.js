@@ -37,12 +37,13 @@ exports.status = (req, res) => {
         })
 }
 
-exports.status1 = (req, res) => {
+exports.status1 = async (req, res) => {
     const section = req.params.section;
-    Progress.findOne({ where : { section: section }})
-        .then(data => {
-            res.send(data)
-        })
+    const progress = await Progress.findOne({ where : { section: section }})
+    const count = await Word.count(
+        {where: {section: section, learning: "0"}});
+    res.send({progress, count})
+        
 }
 
 exports.findOne = (req, res) => {
@@ -63,10 +64,11 @@ exports.findOne = (req, res) => {
 exports.getquez = (req, res) => {
     const section = req.params.section;
     const learn = req.params.learning;
+    const limmit = req.params.limmit;
     if(learn==2){    
         Word.findAll({ 
-            where : { section:section,[Op.or]:[{learning:'3'},{learning:'2'}]} , 
-            limit:15,
+            where : { section:section,[Op.or]:[{learning:'0'},{learning:'3'},{learning:'2'}]} , 
+            limit:limmit,
             order: sequelize.random() 
         })
         .then(data => {
@@ -82,7 +84,7 @@ exports.getquez = (req, res) => {
     else if(learn==0){
         Word.findAll({ 
             where : { section:section,learning: '0' } , 
-            limit:15,
+            limit:limmit,
             order: sequelize.random() 
         })
         .then(data => {
@@ -92,7 +94,7 @@ exports.getquez = (req, res) => {
     }else if(learn==3){
         Word.findAll({ 
             where : { section:section,learning: '3' } , 
-            limit:15,
+            limit:limmit,
             order: sequelize.random() 
         })
         .then(data => {
@@ -119,7 +121,7 @@ exports.result = async (req, res) => {
     const answerrate = Math.round((count3/count)*100)
     const answered = Math.round((1-count2/count)*100)
     const update = await Progress.update({ answerrate: answerrate, answered: answered },{where: { section: section } })
-    res.send({ answerrate, answered, section })
+    res.send({ answerrate, answered, section, count2 })
     }
 
 exports.mark = async (req, res) => {
