@@ -5,6 +5,7 @@ const db = require("../models");
 const Word = db.Word1;
 const Progress = db.progress;
 const Mark = db.mark;
+const NewWords = db.newWords;
 
 exports.create=(req, res) =>{
     if (!req.body.section) {
@@ -144,4 +145,32 @@ exports.markUpdate = (req, res) => {
     const section = req.params.section
     Mark.update({ section: section },{ where: { id: '1' }})
         .then(() => res.send("success"))
+}
+
+exports.postNewWord = (req, res) => {
+    const section = req.body.section
+    const korean = req.body.korean
+    const meaning = req.body.meaning
+    const pronounce = req.body.pronounce
+    const learning = '0'
+    const newword = {section:section,korean:korean,meaning:meaning,pronounce:pronounce, learning:learning}
+    NewWords.create(newword)
+        .then((data)=>res.send(data))
+}
+
+exports.postWord = (req, res) => {
+    const section = req.body.section
+    const korean = req.body.korean
+    const meaning = req.body.meaning
+    const pronounce = req.body.pronounce
+    const learning = '0'
+    const newword = {section:section,korean:korean,meaning:meaning,pronounce:pronounce, learning:learning}
+    Word.create(newword)
+        .then((data)=>res.send(data))
+}
+
+exports.getNewWords = (req, res) => {
+    const section = req.params.section
+    NewWords.findAll({where:{section:section}})
+        .then((data)=>res.send(data))
 }

@@ -84,7 +84,7 @@ const Quez = ({ status, setStatus, recent, setRecent, tm, settm }) => {
   const result = () => {
     axios.get(`/api/tango/result/${section}`)
       .then((response) => {
-         setResult(response.data)
+        setResult(response.data)
         setRecent(response.data)
       })
     axios.post(`/api/tango/markUpdate/${section}`)

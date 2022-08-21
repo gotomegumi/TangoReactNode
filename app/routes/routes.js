@@ -9,5 +9,8 @@ module.exports = app => {
     router.get("/result/:section", word.result);
     router.post("/clear/:section/:learning/:learning2/:learning3", word.clear);
     router.post("/markUpdate/:section", word.markUpdate);
+    router.post("/postword/:section", word.postWord)
+    router.post("/postnewword", word.postNewWord)
+    router.get("/getnewwords/:section", word.getNewWords)
     app.use("/api/tango", router);
 }
