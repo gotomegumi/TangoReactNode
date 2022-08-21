@@ -15,41 +15,61 @@ const Quez = ({ status, setStatus, recent, setRecent, tm, settm }) => {
   const [visible, setVisible] = useState(false)
   const [words, setWords] = useState([
   ]) 
-  var total =15
+  const [total, setTotal] = useState('0')
   
   // total = words.length();
   
   var fn = () => {
     setVisible(true)
-    console.log('time')
     }
   var tmout; 
 
   useEffect(() => {
     const f = async () => {
-      // check what kind of tango data should be loaded
-      const res = await axios.get(`/api/tango/status1/${section}`) 
-      console.log("progress:"+res.data.answered+"%")  
-      console.log("wether progress=100%"+res.data.progress.answered==100)
-      if(res.data.progress.answered>=99){
-        // get words of learning 2,3(△or✕)
-          const res = await axios.get(`/api/tango/getquez/${section}/${learn}/15`)
-          setWords(res.data) 
-          console.log(res.data, learn)
-      // not to make remaining words 0 too few, so that quez won't end so early
-      }else if(res.data.count<20){
-         const res = await axios.get(`/api/tango/getquez/${section}/0/100}`)
-         setWords(res.data) 
-         console.log(res.data, "00")
-      }else{
-        //get words of learning 0(not learned)
-        const res = await axios.get(`/api/tango/getquez/${section}/0/15`) 
-        setWords(res.data)
-        console.log(res.data, "0")
-      }
+      const res = await axios.get(`/api/tango/getquez/${section}/${learn}`)
+      setWords(res.data)
+      setTotal(res.data.length)
+      // // check what kind of tango data should be loaded
+      // const res = await axios.get(`/api/tango/status1/${section}`) 
+      // console.log(res.data.count)  
+      // const count0=res.data.count0
+      // const count2=res.data.count2
+      // const count3=res.data.count3
+      // if(learn==2){
+      //   if(count0>0){
+      //     if(count0<=20){
+      // //  not to make remaining words 0 too few, so that quez won't end so early
+      //       const res = await axios.get(`/api/tango/getquez/${section}/0/20`)
+      //       setWords(res.data)
+      //       setTotal(res.data.length)
+      //       console.log(res.data, '00')
+      //     }else{
+      // //  get words of learning 0(not learned)
+      //       const res = await axios.get(`/api/tango/getquez/${section}/0/15`)
+      //       setWords(res.data)
+      //       setTotal(res.data.length)
+      //       console.log(res.data, '0')              
+      //     }
+      //   }else if(count0==0){
+      // //  get words of learning 2,3(△or✕)
+      //     const res = await axios.get(`/api/tango/getquez/${section}/2/15`)
+      //     setWords(res.data)
+      //     setTotal(res.data.length)
+      //     console.log(res.data, '2')
+      //   }else if(count2==0 && count3==0){
+      //     const res = await axios.get(`/api/tango/getquez/${section}/1/15`)
+      //     setWords(res.data)
+      //     setTotal(res.data.length)
+      //     console.log(res.data, '1')
+      //   }
+      // }else if(learn==3){
+      //   const res = await axios.get(`/api/tango/getquez/${section}/3/15`)
+      //   setWords(res.data)
+      //   setTotal(res.data.length)
+      //   console.log(res.data, '3')
+      // }
     }
     f()
-    setCardnum(cardnum+1)
   },[])
   
   useEffect(()=>{
@@ -94,8 +114,9 @@ const Quez = ({ status, setStatus, recent, setRecent, tm, settm }) => {
   return (
     <div >
       {/* <Indicater styled={{'marginTop':'100px'}} bar_color='pink' percentage='100%'></Indicater> */}
-      {words.map((word, index) => (
-      <Card id='card' key={index} value={word.learning} cardnum={cardnum} num={index}>
+      
+      {words.map((word, index) => ( 
+      <Card key={index} value={word.learning} num={index} cardnum={cardnum}>
         <Section_num>Section{word.section}</Section_num>
         <Progress_bar><Indicater 
           bar_wrap_color='true'
@@ -110,17 +131,18 @@ const Quez = ({ status, setStatus, recent, setRecent, tm, settm }) => {
         </Card_hidden>
         <Button_wrap>
           <Button onClick={() => pushButton(word.id, '1', index)} color='#87d3ff'>〇</Button>
-          <Button onClick={() => pushButton(word.id, '2', index)} color='#ffe100'  >△</Button>
+          <Button onClick={() => pushButton(word.id, '2', index)} color='#ffe100'>△</Button>
           <Button onClick={() => pushButton(word.id, '3', index)} color='#ff9a8f'>✕</Button>
         </Button_wrap>
         
         <Showanswer onClick={show}><Show>答えを見る</Show></Showanswer>
       </Card>
       ))}
-      <Card id='card' num={total} cardnum={cardnum}>
+      <Card num={total} cardnum={cardnum}>
         <Rsult result={resultNum}/>
       </Card>
       <Card style={{'zIndex': '1', 'display':'flex'}}>loading<p>.</p><p>.</p>.</Card>
+      
     </div>
   )
 }

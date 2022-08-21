@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Container } from '../Theme/globalStyles';
 import { Link, useParams, useNavigate } from 'react-router-dom';
@@ -8,22 +8,28 @@ import styled from 'styled-components';
 import { ButtonWrap } from '../Theme/globalStyles';
 
 function Menu({ status, setStatus, settm }) {
+    const [count, setCount] = useState('')
     let params = useParams();
     const section = params.sectionNum;
     const navigate = useNavigate()
+
     useEffect(() => {
         axios.get(`/api/tango/result/${section}`)
-            .then(response => {setStatus(response.data)})
-        console.log(status)
+            .then(response => {
+                setStatus(response.data)
+                setCount({'count0':response.data.count3})
+                console.log(response.data)
+            })
       }, [])
-    const move = (lean) => {
-        navigate('/quez/'+section+'/'+lean)
+    const move = (learn) => {
+        navigate('/quez/'+section+'/'+learn)
     }
     const startOver = async () => {
+        if(count.count1)await axios.post(`/api/tango/clear/${section}/2/2/3`)
         await axios.post(`/api/tango/clear/${section}/2/2/3`)
         await axios.get(`/api/tango/result/${section}`)
             .then(response => {setStatus(response.data)})
-        navigate('/quez/'+section+'/1')
+        navigate('/quez/'+section+'/2')
     }
     const nextMenu = () => {
         setStatus('')
@@ -74,17 +80,18 @@ function Menu({ status, setStatus, settm }) {
         <ButtonWrap color='#34daff' onClick={() => startOver()}>
             <ButtonText >1から復習</ButtonText> 
         </ButtonWrap>
-        <ButtonWrap color='#96ed8e' onClick={()=>move(3)} show={status?`${status.answered===100?'block':'none'}`:'none'}>
+        <ButtonWrap color='#96ed8e' onClick={()=>move(3)} show={count.count0!=0?'block':'none'}>
             <ButtonText>✕の単語のみ復習する</ButtonText>
         </ButtonWrap>
         <MoveWrap>
-            {section>1 && <Move m='right' onClick={() => beforeMenu()}>Before</Move>}
-            {section<18 && <Move m='left' onClick={() => nextMenu()}>Next</Move>}
+            {section>1 && <Move m='right' onClick={() => beforeMenu()}>前のセクション</Move>}
+            {section<18 && <Move m='left' onClick={() => nextMenu()}>次のセクション</Move>}
         </MoveWrap>
+        <p>答えが出るまでの時間を変更</p>
         <TmButton>
-            <p onClick={()=>changetm(4000)}>4000</p>
-            <p onClick={()=>changetm(6000)}>6000</p>
-            <p onClick={()=>changetm(8000)}>8000</p>
+            <p onClick={()=>changetm(4000)}>4秒</p>
+            <p onClick={()=>changetm(6000)}>6秒</p>
+            <p onClick={()=>changetm(8000)}>8秒</p>
         </TmButton>
     </Container>
   )
@@ -93,7 +100,7 @@ function Menu({ status, setStatus, settm }) {
 const TmButton = styled.div`
     display: flex;
     p{
-        margin: 30px 30px;
+        margin: 0 5px;
         padding: 10px 30px;
     }
     p:hover{

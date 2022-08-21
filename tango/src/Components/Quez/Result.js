@@ -5,9 +5,9 @@ import { ButtonWrap } from '../Theme/globalStyles'
 import {Link} from 'react-router-dom'
 
 const Rsult = ({result}) => {
-const reload = ()=>{
-  window.location.reload(false);
-}
+  const reload = ()=>{
+    window.location.reload(false);
+  }
 
   return (
         <LastCard>
